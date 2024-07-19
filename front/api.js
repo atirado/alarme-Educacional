@@ -1,9 +1,8 @@
-let button = document.getElementById("handleSubmit");
+let button = document.getElementById("submitDevice");
  
 button.onclick= async function() {
-    let email = document.getElementById("email").value;
-    let senha = document.getElementById("senha").value;
-    let data = {email, senha}
+    let nome_dos_dispositivos = document.getElementById("deviceName").value;
+    let data = {nome_dos_dispositivos}
  
     const response = await fetch('http://localhost:3008/api/store/post', {
         method: "POST",
@@ -16,6 +15,6 @@ button.onclick= async function() {
     if(content.sucess){
         alert("Sucesso")
     }else{
-        alert("Não")
+        alert("enviado")
     }
 }

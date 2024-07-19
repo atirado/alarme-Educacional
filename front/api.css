@@ -1,0 +1,16 @@
+h1{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1000%;
+    text-align: center;
+}
+ 
+.Registro1{
+    text-align: center;
+    height: 585px;
+}
+ 
+.corpo{
+ background-color: #0093E9;
+background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+ 
+}

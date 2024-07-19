@@ -5,17 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alarme Educacional</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Biblioteca Chart.js -->
+    <link rel="icon" href="../front/assets/logo.png" type="image/png">
 </head>
-<body>
-
+<body class="fundo">
     <img src="./assets/logo.png" alt="" class="center"/>
-
     <div class="container">
-        <h2>Defina o tempo limite de uso do smartphone (em segundos):</h2>
-        <input type="number" id="timeInput" placeholder="Digite o tempo em segundos">
-        <button onclick="startCountdown()">Definir Tempo Limite</button>
-      </div>
-      <script src="script.js"></script>
+        
+        <h2> Monitore o tempo de uso do Smartphone:</h2>
 
+        <button onclick="startTimer()" class="animated-button">Iniciar Monitoramento</button>
+        <button onclick="stopTimer()" class="animated-button">Parar Monitoramento</button>
+        <button onclick="showModal()" class="animated-button">conecte um Smartphone</button>
+        <button onclick="disconnectBluetooth()" class="animated-button">Desconectar Bluetooth</button>
+
+
+        <form>
+            <label for="deviceName">Modelo do Dispositivo:</label><br>
+            <input type="text" id="deviceName" name="deviceName"><br><br>
+            <button id="submitDevice">Armazenar Dispositivo</button>
+        </form>
+
+        <div id="connectedDeviceDisplay"></div> <!-- Exibe o dispositivo conectado -->
+        <div id="usageTimeDisplay"></div> <!-- Exibe o tempo de uso -->
+
+        <canvas id="usageTimeChart" width="400" height="200"></canvas> <!-- Elemento canvas para o gráfico -->
+
+        <div id="myModal" class="modal" onclick="closeModal()">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Smartphones Disponíveis para Conexão</h2>
+                <ul id="deviceList"></ul>
+            </div>
+        </div>
+
+        <span id="selectedModel" style="display: none;"></span>
+    </div>
+    
+    <audio id="alarmSound" src="alarm.mp3"></audio> <!-- Elemento de áudio para o alarme -->
+
+    <script src="script.js"></script>
+    <script src="api.js"></script>
+    <script src="../login/index.js"></script>
 </body>
 </html>

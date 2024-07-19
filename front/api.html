@@ -1,24 +1,22 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="api.css">
     <title>Integração de formulário com API</title>
 </head>
-<body>
-    <h2>Formulário</h2>
+<body class="corpo">
+        <h1 class="h1 ">Registro</h1>
  
-    <form action="#">
-        <label for="fname">email:</label><br>
-        <input type="text" id="email" name="title"><br>
+    <form action="#" class="Registro1">
  
-        <label for="lname">senha:</label><br>
-        <input type="password" id="senha" name="senha"><br><br>
+            <label for="deviceName">Nome do Dispositivo:</label><br>
+            <input type="text" id="deviceName" name="deviceName"><br><br>
     
-            <button id="handleSubmit">Enviar</button>
-    </form>
- 
- 
+            <button id="submitDevice">Armazenar Dispositivo</button>
+        </form>
     <script src="./api.js"></script>
 </body>
 </html>
+ 
