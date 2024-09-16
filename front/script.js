@@ -46,8 +46,15 @@ function updateUsageTime() {
 
     updateChart(hours, minutes, seconds); // Atualiza o gráfico com o tempo de uso
 
-    if (elapsedTime >= 600) { // Verifica se o tempo de uso é igual ou superior a 10 minutos (600 segundos)
-        document.getElementById('alarmSound').play(); // Toca o alarme
+    if (elapsedTime >= 60) { // Verifica se o tempo de uso é igual ou superior a 1 minuto (60 segundos)
+        const alarmSound = document.getElementById('alarmSound'); // Obtém o elemento de som do alarme
+        alarmSound.play(); // Toca o alarme
+
+        // Para o alarme após 10 segundos
+        setTimeout(() => {
+            alarmSound.pause(); // Pausa o alarme
+            alarmSound.currentTime = 0; // Reseta o som do alarme para o início
+        }, 10000); // 10000 milissegundos = 10 segundos
     }
 }
 
@@ -77,17 +84,17 @@ function updateChart(hours, minutes, seconds) {
             }
         });
     } else {
-        usageTimeChart.data.datasets[0].data = [hours, minutes, seconds]; // Atualiza os dados do conjunto de dados
-        usageTimeChart.data.datasets[0].backgroundColor = getBackgroundColor(hours); // Atualiza a cor do gráfico com base nas horas
+        usageTimeChart.data.datasets[0].data = [hours, minutes, seconds];
+        usageTimeChart.data.datasets[0].backgroundColor = getBackgroundColor(minutes); 
         usageTimeChart.update(); // Atualiza o gráfico
     }
 }
 
 // Função para obter a cor de fundo do gráfico com base nas horas de uso
-function getBackgroundColor(hours) {
-    if (hours >= 5) {
+function getBackgroundColor(minutes) {
+    if (minutes >= 1) {
         return 'rgba(255, 0, 0, 0.6)'; // Retorna vermelho se as horas de uso são 5 ou mais
-    } else if (hours >= 3) {
+    } else if (minutes >= 30 ) {
         return 'rgba(255, 165, 0, 0.6)'; // Retorna laranja se as horas de uso são entre 3 e 5
     } else {
         return 'rgba(0, 255, 0, 0.6)'; // Retorna verde se as horas de uso são menos de 3
@@ -97,7 +104,7 @@ function getBackgroundColor(hours) {
 // Função para exibir o modal de dispositivos disponíveis
 function showModal() {
     const modal = document.getElementById("myModal"); // Obtém o elemento modal
-    modal.style.display = "block"; // Exibe o modal
+    modal.style.display = "block"; 
     scanForDevices(); // Inicia a busca por dispositivos Bluetooth disponíveis
 }
 
@@ -110,6 +117,7 @@ function closeModal() {
 // Função para conectar ao smartphone selecionado
 async function connectSmartphone(device, model) {
     try {
+        console.log("Conectando ao dispositivo:", device); // Log para depuração
         const server = await device.gatt.connect(); // Conecta ao servidor GATT do dispositivo selecionado
         connectedDevice = device; // Armazena o dispositivo conectado na variável global
         connectedServer = server; // Armazena o servidor GATT conectado na variável global
@@ -124,21 +132,21 @@ async function connectSmartphone(device, model) {
 
 // Função para escanear dispositivos Bluetooth disponíveis
 async function scanForDevices() {
-    if (!navigator.bluetooth) { // Verifica se o navegador suporta a API Web Bluetooth
+    if (!navigator.bluetooth) {
         alert("Seu navegador não suporta Web Bluetooth.");
-        return; // Sai da função se não for suportado
+        return;
     }
 
     try {
         const device = await navigator.bluetooth.requestDevice({
             acceptAllDevices: true, // Aceita todos os dispositivos
-            optionalServices: ['generic_access'] // Tenta obter o serviço genérico de acesso para obter o nome do dispositivo
+            optionalServices: ['generic_access', 'battery_service'] // Inclui serviços adicionais para tentar obter mais informações do dispositivo
         });
 
         const deviceList = document.getElementById('deviceList'); // Obtém o elemento da lista de dispositivos
         deviceList.innerHTML = ''; // Limpa a lista antes de adicionar novos dispositivos
 
-        let deviceName = device.name || device.gatt.device.name; // Obtém o nome do dispositivo
+        let deviceName = device.name || device.gatt.device.name; // Tenta obter o nome do dispositivo diretamente
 
         if (!deviceName) { // Se o nome não estiver disponível diretamente
             try {
@@ -153,11 +161,15 @@ async function scanForDevices() {
             }
         }
 
-        deviceName = deviceName || 'Dispositivo Desconhecido'; // Define o nome do dispositivo como 'Desconhecido' se não puder ser obtido
+        // Atualizando para garantir que só caia no fallback se não houver realmente um nome disponível
+        if (!deviceName) {
+            deviceName = 'Dispositivo Desconhecido';
+        }
 
         const listItem = document.createElement('li'); // Cria um novo item de lista
         listItem.textContent = deviceName; // Define o texto do item como o nome do dispositivo
-        listItem.onclick = () => connectSmartphone(device, deviceName); // Define o comportamento de clique do item
+        listItem.onclick = () => connectSmartphone(device, deviceName); // Define a ação de clique para conectar ao dispositivo
+
         deviceList.appendChild(listItem); // Adiciona o item à lista de dispositivos
 
     } catch (error) {
@@ -165,3 +177,6 @@ async function scanForDevices() {
         alert("Erro ao escanear dispositivos: " + error.message); // Exibe um alerta com a mensagem de erro
     }
 }
+
+// Adiciona um ouvinte de evento ao clique no botão de fechar o modal
+document.getElementsByClassName("close")[0].onclick = closeModal;

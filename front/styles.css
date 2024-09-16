@@ -6,12 +6,13 @@ body {
 }
  
 .container {
-  width: 80%;
+  width: 90%;
+  max-width: 1200px;
   margin: 50px auto;
   text-align: center;
-  height: 585px;
+  height: auto; /* para evitar scroll indesejado */
 }
- 
+
 h2 {
   margin-bottom: 20px;
 }
@@ -27,25 +28,32 @@ input[type="number"] {
 }
  
 button {
-  width: 200px;
-  height: 40px;
-  background-color:  #e08235;
+  width: 220px; /* Aumentar a largura do botão */
+  height: 60px; /* Aumentar a altura do botão */
+  background-color: #e08235;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 18px; /* Aumentar o tamanho da fonte */
 }
- 
+
+button:hover {
+  background-color: #d16e20; /* Ajustar a cor ao passar o mouse */
+} 
+
 button:hover {
   background-color: #0056b3;
 }
+
 .center {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 30vh;
-  margin-left: 42.9%;
+  margin: 0 auto;
 }
+
  
 .modal {
   display: none;
@@ -61,12 +69,13 @@ button:hover {
  
 .modal-content {
   background-color: #fefefe;
-  margin: 10% auto;
+  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 90%;
+  max-width: 600px; /* Limite para telas maiores */
 }
- 
+
 .close {
   color: #aaa;
   float: right;
@@ -89,26 +98,46 @@ th, td {
   padding: 8px;
   text-align: left;
 }
- 
+
 .animated-button {
   background-color: #e08235;
   border: none;
   color: white;
-  padding: 10px 32px;
+  padding: 12px 36px; /* Aumentar o espaçamento interno */
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 10px;
-  margin: 4px 2px;
+  font-size: 18px; /* Aumentar o tamanho da fonte */
+  margin: 10px; /* Espaçamento entre os botões */
   cursor: pointer;
   border-radius: 8px;
   transition: all 0.3s ease;
-}
- 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve para profundidade */
+} 
+
 .animated-button:hover {
-  background-color: #45a049;
+  background-color: #d1bf20; /* Ajustar a cor ao passar o mouse */
 }
- 
+
+.container {
+  width: 80%;
+  margin: 50px auto;
+  text-align: center;
+}
+
+form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  width: 200px;
+  height: 30px;
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
 .animated-button:active {
   transform: scale(0.95);
 }
@@ -149,4 +178,55 @@ th, td {
 #usageTimeChart {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+/* Contêiner de perfil */
+#profileContainer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  z-index: 100;
+}
+
+
+.profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#userLoggedIn {
+    margin-left: 10px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.profile-menu {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 101;
+}
+
+.profile-menu p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.profile-menu button {
+    background: #f00;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
 }

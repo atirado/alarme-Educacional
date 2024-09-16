@@ -1,56 +1,75 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+    <!-- Metadados essenciais para o documento HTML -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Link para o ícone da fonte Awesome (usado para o ícone do olho) -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+
+    <!-- Ícone da página (favicon) -->
     <link rel="icon" href="../front/assets/logo.png" type="image/png">
+
+    <!-- Link para a folha de estilo CSS personalizada para o formulário de cadastro -->
     <link rel="stylesheet" href="../login/signup.css" />
-    <title>Singup</title>
+
+    <!-- Título da página que aparece na aba do navegador -->
+    <title>Cadastro</title>
   </head>
   <body>
+    <!-- Container principal para o formulário de cadastro -->
     <div class="container">
       <div class="card">
+        <!-- Título do formulário -->
         <h1>Cadastrar</h1>
 
+        <!-- Elemento para exibir mensagens de erro -->
         <div id="msgError"></div>
+
+        <!-- Elemento para exibir mensagens de sucesso -->
         <div id="msgSuccess"></div>
 
+        <!-- Campo para entrada do nome -->
         <div class="label-float">
           <input type="text" id="nome" placeholder=" " required />
           <label id="labelNome" for="nome">Nome</label>
         </div>
 
+        <!-- Campo para entrada do nome de usuário -->
         <div class="label-float">
           <input type="text" id="usuario" placeholder=" " required />
           <label id="labelUsuario" for="usuario">Usuário</label>
         </div>
 
+        <!-- Campo para entrada da senha com ícone de olho para mostrar/ocultar a senha -->
         <div class="label-float">
           <input type="password" id="senha" placeholder=" " required />
           <label id="labelSenha" for="senha">Senha</label>
           <i id="verSenha" class="fa fa-eye" aria-hidden="true"></i>
         </div>
 
+        <!-- Campo para confirmação da senha com ícone de olho para mostrar/ocultar a senha -->
         <div class="label-float">
           <input type="password" id="confirmSenha" placeholder=" " required />
-          <label id="labelConfirmSenha" for="confirmSenha"
-            >Confirmar Senha</label
-          >
+          <label id="labelConfirmSenha" for="confirmSenha">Confirmar Senha</label>
           <i id="verConfirmSenha" class="fa fa-eye" aria-hidden="true"></i>
         </div>
 
+        <!-- Botões para voltar à página anterior ou criar uma conta -->
         <div class="justify-center">
-          <button onclick="login()">Cadastrar</button>
+          <button onclick="cadastro()">voltar</button> 
+          <button onclick="login()">criar conta</button>
         </div>
       </div>
     </div>
 
-    <script src="../login/signup.js"></script>
-    <script src="../login/cadastro.js"></script>
+    <!-- Scripts JavaScript para funcionalidades da página -->
+    <script src="../login/signup.js"></script> 
+    <script src="../login/cadastro.js"></script> 
   </body>
 </html>

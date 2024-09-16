@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+    <!-- Metadados -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Links para CSS e ícones -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <link rel="stylesheet" href="../login/signin.css" />
     <link rel="icon" href="../front/assets/logo.png" type="image/png">
-    <title>Singin</title>
+
+    <title>Login</title>
   </head>
+
   <body>
     <div class="container">
       <div class="card">
@@ -19,17 +24,20 @@
 
         <div id="msgError"></div>
 
+        <!-- Campo de entrada para o nome de usuário -->
         <div class="label-float">
-          <input type="text" id="usuario" paceholder="" required />
-          <label id="userLabel" for="usuario">Usuario</label>
+          <input type="text" id="usuario" placeholder="" required />
+          <label id="userLabel" for="usuario">Usuário</label>
         </div>
 
+        <!-- Campo de entrada para a senha -->
         <div class="label-float">
-          <input type="password" id="senha" paceholder="" required />
+          <input type="password" id="senha" placeholder="" required />
           <label id="senhaLabel" for="senha">Senha</label>
           <i class="fa fa-eye" aria-hidden="true"></i>
         </div>
 
+        <!-- Botão de login -->
         <div class="justify-center">
           <button onclick="entrar()">Entrar</button>
         </div>
@@ -38,15 +46,15 @@
           <hr />
         </div>
 
+        <!-- Link para a página de cadastro -->
         <p>
           Não tem uma conta?
-          <a href="../login/signup.html">
-            Cadastre-se
-          </a>
+          <a href="../login/signup.html">Cadastre-se</a>
         </p>
       </div>
     </div>
 
+    <!-- Script JavaScript -->
     <script src="../login/signin.js"></script>
   </body>
 </html>

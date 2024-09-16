@@ -1,51 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alarme Educacional</title>
+
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Biblioteca Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="icon" href="../front/assets/logo.png" type="image/png">
+ 
 </head>
 <body class="fundo">
+    
     <img src="./assets/logo.png" alt="" class="center"/>
+
+    
+    <div id="profileContainer">
+        <!-- Div para conter a imagem de perfil, nome de usuário e menu de perfil -->
+
+        <img id="profileImage" src="../perfil.png" alt="Perfil" class="profile-image" onclick="toggleProfileMenu()"/>
+        <!-- Imagem de perfil que, quando clicada, executa a função toggleProfileMenu para mostrar ou esconder o menu de perfil -->
+
+        <span id="userLoggedIn"></span>
+        <!-- Span para exibir o nome do usuário logado, preenchido dinamicamente pelo JavaScript -->
+
+        <div id="profileMenu" class="profile-menu">
+            <!-- Menu de perfil que exibe informações do usuário e um botão de logout -->
+
+            <p>Nome: <span id="profileName"></span></p>
+            <!-- Parágrafo que exibe o nome do usuário, preenchido dinamicamente pelo JavaScript -->
+
+            <p>Usuário: <span id="profileUser"></span></p>
+            <!-- Parágrafo que exibe o nome de usuário (login), preenchido dinamicamente pelo JavaScript -->
+
+            <button onclick="logout()">sair</button>
+            <!-- Botão para logout, que ao ser clicado executa a função logout para encerrar a sessão -->
+        </div>
+    </div>
+
     <div class="container">
-        
+        <!-- Div principal da página, que contém o conteúdo do monitoramento do tempo de uso -->
+
         <h2> Monitore o tempo de uso do Smartphone:</h2>
+        <!-- Título da seção principal -->
 
         <button onclick="startTimer()" class="animated-button">Iniciar Monitoramento</button>
-        <button onclick="stopTimer()" class="animated-button">Parar Monitoramento</button>
-        <button onclick="showModal()" class="animated-button">conecte um Smartphone</button>
-        <button onclick="disconnectBluetooth()" class="animated-button">Desconectar Bluetooth</button>
+        <!-- Botão para iniciar o monitoramento do tempo de uso do smartphone -->
 
+        <button onclick="stopTimer()" class="animated-button">Parar Monitoramento</button>
+        <!-- Botão para parar o monitoramento do tempo de uso -->
+
+        <button onclick="showModal()" class="animated-button">Conecte um Smartphone</button>
+        <!-- Botão para exibir um modal que permite conectar a um smartphone -->
+
+        <button onclick="disconnectBluetooth()" class="animated-button">Desconectar Bluetooth</button>
+        <!-- Botão para desconectar o Bluetooth do smartphone conectado -->
 
         <form>
+            <!-- Formulário para inserir e armazenar o modelo do dispositivo -->
+
             <label for="deviceName">Modelo do Dispositivo:</label><br>
+            <!-- Rótulo do campo de entrada para o nome do dispositivo -->
+
             <input type="text" id="deviceName" name="deviceName"><br><br>
+            <!-- Campo de texto para inserir o nome do dispositivo -->
+
             <button id="submitDevice">Armazenar Dispositivo</button>
+            <!-- Botão para submeter o formulário e armazenar o dispositivo -->
         </form>
 
-        <div id="connectedDeviceDisplay"></div> <!-- Exibe o dispositivo conectado -->
-        <div id="usageTimeDisplay"></div> <!-- Exibe o tempo de uso -->
+        <div id="connectedDeviceDisplay"></div>
+        <!-- Div para exibir o nome do dispositivo conectado -->
 
-        <canvas id="usageTimeChart" width="400" height="200"></canvas> <!-- Elemento canvas para o gráfico -->
+        <div id="usageTimeDisplay"></div>
+        <!-- Div para exibir o tempo de uso do dispositivo -->
+
+        <canvas id="usageTimeChart" width="400" height="200"></canvas>
+        <!-- Elemento canvas para exibir um gráfico do tempo de uso utilizando Chart.js -->
 
         <div id="myModal" class="modal" onclick="closeModal()">
+            <!-- Div para o modal que exibe os smartphones disponíveis para conexão -->
+
             <div class="modal-content" onclick="event.stopPropagation()">
+                <!-- Conteúdo do modal, com clique dentro do modal impedindo o fechamento do mesmo -->
+
                 <span class="close" onclick="closeModal()">&times;</span>
+                <!-- Botão para fechar o modal, representado por '×' -->
+
                 <h2>Smartphones Disponíveis para Conexão</h2>
+                <!-- Título do modal -->
+
                 <ul id="deviceList"></ul>
+                <!-- Lista para exibir os dispositivos disponíveis para conexão -->
             </div>
         </div>
 
         <span id="selectedModel" style="display: none;"></span>
+        <!-- Span oculto que pode ser usado para armazenar o modelo do dispositivo selecionado -->
     </div>
-    
-    <audio id="alarmSound" src="alarm.mp3"></audio> <!-- Elemento de áudio para o alarme -->
+
+    <audio id="alarmSound" src="Toque Morning Flower (Alarme Samsung).mp3"></audio>
+    <!-- Elemento de áudio para reproduzir um som de alarme -->
 
     <script src="script.js"></script>
+    <!-- Inclusão do arquivo JavaScript externo script.js, que contém funções e lógica para a página -->
+
     <script src="api.js"></script>
-    <script src="../login/index.js"></script>
+    <!-- Inclusão do arquivo JavaScript externo api.js, possivelmente para comunicação com APIs -->
+
+    <script>
+        // Script para exibir o nome do usuário logado
+        document.addEventListener("DOMContentLoaded", function() {
+            const userLoggedInElement = document.getElementById("userLoggedIn");
+            const profileNameElement = document.getElementById("profileName");
+            const profileUserElement = document.getElementById("profileUser");
+            const userLogado = JSON.parse(localStorage.getItem("userLogado"));
+            
+            if (userLogado) {
+                userLoggedInElement.textContent = userLogado.nome;
+                profileNameElement.textContent = userLogado.nome;
+                profileUserElement.textContent = userLogado.user;
+            }
+        });
+
+        function toggleProfileMenu() {
+            const profileMenu = document.getElementById("profileMenu");
+            profileMenu.style.display = profileMenu.style.display === "block" ? "none" : "block";
+        }
+
+        function logout() {
+            localStorage.removeItem("token");
+            localStorage.removeItem("userLogado");
+            window.location.href = '../login/signin.html';
+        }
+    </script>
+    <!-- Script que manipula o DOM para exibir o nome do usuário logado e controla o menu de perfil -->
 </body>
 </html>
