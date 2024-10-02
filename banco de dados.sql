@@ -30,3 +30,6 @@ drop table cadastro;
 
 truncate cadastro;
 truncate conectados;
+
+
+

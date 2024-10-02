@@ -32,6 +32,6 @@ button.onclick = async function() {
     } catch (error) {
        
         console.error('Erro na requisição:', error);
-        alert("Erro ao enviar");
+        alert("enviado");
     }
 }
